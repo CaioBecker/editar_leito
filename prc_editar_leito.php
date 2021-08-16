@@ -276,14 +276,18 @@ oci_execute($result_log_novo);
 $codigo = 'editar_leito.php?cd_leito='.$_SESSION['cd_leito'];
 
 if (!$valida_insert_update) {   
+
     $erro = oci_error($result_tb_os);																							
     $_SESSION['msgerro'] = 'Erro ao atualizar o leito! ' . htmlentities($erro['message']);
     header('location: '.$codigo);
     return 0;
+
   }else {
+
     $_SESSION['msg'] = 'Leito n° ' . $v_valor_novo . ' editado com sucesso!';
     header('location: pesquisar_leito.php'); 
     return 0;
+    
   }
 
 ?>
