@@ -78,7 +78,11 @@
                         </div>
                 </div>
                 </li>
+                <?php
+                $pri_nome = $_SESSION['usuarioLogin']
+                ?>
                 <div class="menu_perfil">
+                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-user-circle-o" aria-hidden="true"></i> <?php echo $pri_nome ?></a></a>

@@ -29,7 +29,7 @@ $CD_LEITO_INTEGRA_antigo = $_SESSION['CD_LEITO_INTEGRA_ANT'];
 $CD_SEQ_INTEGRA_antigo = $_SESSION['CD_SEQ_INTEGRA_ANT'];
 $DT_INTEGRA_antigo = $_SESSION['DT_INTEGRA_ANT'];
 $CD_LEITO_PAI_antigo = $_SESSION['CD_LEITO_PAI_ANT'];
-$usu_antigo = $_SESSION['usuarioLogin2'];
+$usu_antigo = $_SESSION['usuarioLogin'];
 
 //INSERT LOG
 $insert_log_antigo="INSERT INTO leito_log

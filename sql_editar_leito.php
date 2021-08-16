@@ -2,11 +2,10 @@
 
 $v_valor = $_SESSION['cd_leito'];
 
-$consulta_leito="
- Select *
-from leito
- where CD_LEITO = $v_valor
- order by tp_situacao
+$consulta_leito="SELECT *
+FROM leito
+ WHERE CD_LEITO = $v_valor
+ ORDER BY tp_situacao
 ";
 //echo $consulta_leito;
 $resulta_leito= ociparse($conn_ora,$consulta_leito);
@@ -34,6 +33,8 @@ $CD_SEQ_INTEGRA = $row_edit_leito['CD_SEQ_INTEGRA'];
 $DT_INTEGRA = $row_edit_leito['DT_INTEGRA'];
 $CD_LEITO_PAI = $row_edit_leito['CD_LEITO_PAI'];
 //$TP_ETAPA = $row_edit_leito['TP_ETAPA'];
+
+//echo '</br> CD LEITO </br>'. $v_valor;
 
 $_SESSION['CD_LEITO'] = $v_valor;
 $_SESSION['TIP_ACOM_ANT'] = $TIP_ACOM;
@@ -63,40 +64,44 @@ $consulta_acom = "SELECT DISTINCT acom.*
                     INNER JOIN tip_acom acom
                         ON acom.CD_TIP_ACOM = lei.CD_TIP_ACOM
                     WHERE acom.CD_TIP_ACOM = $TIP_ACOM";
-//echo $consulta_acom;
+//echo '</br> tip acom: </br>'. $consulta_acom;
 $resulta_acom = ociparse($conn_ora,$consulta_acom);
 oci_execute($resulta_acom);
 $row_acom = oci_fetch_array($resulta_acom);
-
+//echo '</br> row tip acom: </br>'. $row_acom['DS_TIP_ACOM'];
 
 $consulta_unid_int = "SELECT DISTINCT uni.*
                         FROM leito lei
                         INNER JOIN unid_int uni
                             ON uni.CD_UNID_INT = lei.CD_UNID_INT
                         WHERE uni.CD_UNID_INT = $UNID_INT";
-//echo $consulta_unid_int;
+//echo '</br> unid int: </br>'. $consulta_unid_int;
 $resulta_uni_int = ociparse($conn_ora,$consulta_unid_int);
 oci_execute($resulta_uni_int);
 $row_uni_int = oci_fetch_array($resulta_uni_int);
+//echo '</br> row unid int: </br>'. $row_uni_int['DS_UNID_INT'];
+
 
 $consulta_copa = "SELECT DISTINCT cp.*
                         FROM leito lei
                         INNER JOIN copa cp
                             ON cp.CD_COPA = lei.CD_COPA
                         WHERE cp.CD_COPA = $CD_COPA";
-//echo $consulta_copa;
+//echo '</br> copa: </br>'. $consulta_copa;
 $resulta_copa = ociparse($conn_ora,$consulta_copa);
 oci_execute($resulta_copa);
 $row_copa = oci_fetch_array($resulta_copa);
+//echo '</br> row copa: </br>'. $row_copa['DS_COPA'];
+
 
 $consulta_sus = "SELECT DISTINCT sus.*
 FROM leito lei
 INNER JOIN tip_acom_uti_sus sus
     ON sus.CD_tip_acom_uti_sus = lei.CD_UNID_INT
 WHERE sus.CD_tip_acom_uti_sus = $CD_TIP_ACOM_UTI_SUS";
-//echo $consulta_sus;
+//echo '</br> sus: </br>'. $consulta_sus;
 @$resulta_sus = ociparse($conn_ora,@$consulta_sus);
 @oci_execute(@$resulta_sus);
 @$row_sus = oci_fetch_array(@$resulta_sus);
-
+//echo '</br> row sus: </br>'. @$row_sus['DS_TIP_ACOM_UTI_SUS'];
 ?>

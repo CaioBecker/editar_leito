@@ -7,7 +7,8 @@ include 'conexao.php';
 
 include 'acesso_restrito.php';
 
-include 'sql_editar_leito.php';
+
+
 
 ?>
 <?php
@@ -18,6 +19,8 @@ include 'sql_editar_leito.php';
 
 <?php
 $_SESSION['cd_leito'] = filter_input(INPUT_GET, 'cd_leito', FILTER_SANITIZE_NUMBER_INT);
+
+include 'sql_editar_leito.php';
 ?>
 
 <h11><i class="fas fa-pen"></i> Editar Leito</h11>
@@ -148,22 +151,8 @@ $_SESSION['cd_leito'] = filter_input(INPUT_GET, 'cd_leito', FILTER_SANITIZE_NUMB
             Descrição leito:
             <input class="form-control" type="text" id="id_ds_leito" name="ds_leito" value="<?php echo $row_edit_leito['DS_LEITO'];?>"></input>
         </div>
-        <div class="col-md-1">
-            </br>
-            Ativo:
-           <?php 
-            if($TP_SITUACAO == 'A'){
-                ?>
-                <input type="checkbox" id="id_ativo" name="ativo" value="on" checked></input>
-            <?php
-            }else{ ?>
-                <input type="checkbox" id="id_ativo" name="ativo" value="off"></input>
-           <?php }        
-
-        ?>
-        </div>
-        <div class="col-md-4">
-        Descrição copa:
+        <div class="col-md-3">
+            Descrição copa:
             <?php 
 
                 //CLASSE BOTAO
@@ -211,26 +200,10 @@ $_SESSION['cd_leito'] = filter_input(INPUT_GET, 'cd_leito', FILTER_SANITIZE_NUMB
 
             ?>
                                     
-            <!--FIM CAIXA AUTOCOMPLETE-->  
+            <!--FIM CAIXA AUTOCOMPLETE-->
         </div>
-    </div>
-    <div class="row">
-        <div class="col-md-2">
-            Extra:
-            </br>
-            <?php 
-            if($SN_EXTRA == 'S'){
-                ?>
-                <input type="checkbox" id="id_extra" name="extra" value="on" checked></input>
-            <?php
-            }else{ ?>
-                <input type="checkbox" id="id_extra" name="extra" value="off"></input>
-           <?php }        
-
-        ?>
-        </div>
-        <div class="col-md-4">
-            Tipo de acomodação SUS:
+        <div class="col-md-3">
+        Tipo de acomodação SUS:
             <?php
             //CLASSE BOTAO
                 $classe_botao = 'fas fa-search';
@@ -277,7 +250,37 @@ $_SESSION['cd_leito'] = filter_input(INPUT_GET, 'cd_leito', FILTER_SANITIZE_NUMB
             ?>
                                     
             <!--FIM CAIXA AUTOCOMPLETE--> 
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-2">
+            Extra:
+            </br>
+            <?php 
+            if($SN_EXTRA == 'S'){
+                ?>
+                <input type="checkbox" id="id_extra" name="extra" value="on" checked></input>
+            <?php
+            }else{ ?>
+                <input type="checkbox" id="id_extra" name="extra" value="off"></input>
+           <?php }        
 
+        ?>
+        </div>
+        <div class="col-md-2">
+        </br>
+            Ativo:
+           <?php 
+            if($TP_SITUACAO == 'A'){
+                ?>
+                <input type="checkbox" id="id_ativo" name="ativo" value="on" checked></input>
+            <?php
+            }else{ ?>
+                <input type="checkbox" id="id_ativo" name="ativo" value="off"></input>
+           <?php }        
+
+        ?>
+            
         </div>
     </div>
     </br>

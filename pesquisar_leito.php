@@ -1,5 +1,7 @@
 <?php
     @session_start();
+
+
     include 'cabecalho.php';
 
     include 'conexao.php';
@@ -76,13 +78,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
         
 
         while ($row_leito = oci_fetch_array($resulta_leito)) {
-						
+				$cd_leito = $row_leito['CD_LEITO'];		
             echo "</tr></thead>";		
-            echo "<td style='text-align: center;'>" . $row_leito['CD_LEITO'] . "<br>" . "</td>";
+            echo "<td style='text-align: center;'>" . $cd_leito . "<br>" . "</td>";
             echo "<td style='text-align: center;'>" . $row_leito['DS_LEITO'] . "<br>" . "</td>";
             if (strtoupper($row_leito['TP_SITUACAO']) == 'A') { echo "<td style='text-align: center;'>" . "<i style='color:green' class='fa fa-check' aria-hidden='true'></i>" . "<br>" . "</td>"; } 
 			else { echo "<td style='text-align: center;'>" . "<i style='color:red' class='fa fa-times' aria-hidden='true'></i>" . "<br>" . "</td>"; }
-            echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='editar_leito.php?cd_leito=" . $row_leito['CD_LEITO'] . "'>" . "<i class='fas fa-pen'></i>" . "</a> "; 		
+            echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='editar_leito.php?cd_leito=" . $cd_leito . "'>" . "<i class='fas fa-pen'></i>" . "</a> "; 		
  
          echo "</tr>";
         }
