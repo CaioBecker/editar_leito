@@ -240,7 +240,7 @@ DT_INTEGRA = '$DT_INTEGRA_antigo',
 CD_LEITO_PAI = '$CD_LEITO_PAI_antigo' where CD_LEITO = '$v_valor_antigo'";
 echo $update_leito;
 $result_leito = ociparse($conn_ora,$update_leito);
-oci_execute($result_leito);
+$valida_insert_upadte = oci_execute($result_leito);
 
 //INSERT NOVO LOG/////////////////////////////////////////////////
 $insert_log_novo = "INSERT INTO leito_log
@@ -271,12 +271,13 @@ $insert_log_novo = "INSERT INTO leito_log
                 FROM DUAL";
 
 $result_log_novo = ociparse($conn_ora,$insert_log_novo);
-$valida_insert = oci_execute($result_log_novo);
+oci_execute($result_log_novo);
+
 $codigo = 'editar_leito.php?cd_leito='.$_SESSION['cd_leito'];
 
-if (!$valida_insert) {   
-    $erro = oci_error($result_tb_os) . oci_error($result_tb_os) ;																							
-    $_SESSION['msgerro'] = htmlentities($erro['message']);
+if (!$valida_insert_update) {   
+    $erro = oci_error($result_tb_os);																							
+    $_SESSION['msgerro'] = 'Erro ao atualizar o leito! ' . htmlentities($erro['message']);
     header('location: '.$codigo);
     return 0;
   }else {
