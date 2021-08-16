@@ -9,7 +9,7 @@
     ob_start();
 
     //VARIAVEIS NOME
-    @$nome = @$_SESSION['usuarioLogin'];
+    @$nome = @$_SESSION['usuarioNome'];
     @$pri_nome = substr(@$nome, 0, strpos(@$nome, ' '));
 
     //ACESSO RESTRITO
@@ -79,10 +79,9 @@
                 </div>
                 </li>
                 <div class="menu_perfil">
-                    
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="dropdown06" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-user-circle-o" aria-hidden="true"></i> <?php echo $pri_nome ?></a></a>
+                        <i class="fa fa-user-circle-o" aria-hidden="true"></i> <?php echo $pri_nome; ?></a></a>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown06">
                         <a class="dropdown-item" href="sair.php"> <i class="fa fa-sign-out" aria-hidden="true"></i> Sair</a>
                         </div>
