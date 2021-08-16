@@ -31,6 +31,7 @@ $DT_INTEGRA_antigo = $_SESSION['DT_INTEGRA_ANT'];
 $CD_LEITO_PAI_antigo = $_SESSION['CD_LEITO_PAI_ANT'];
 $usu_antigo = $_SESSION['usuarioLogin'];
 
+$codigo = 'editar_leito.php?cd_leito='.$_SESSION['cd_leito'];
 
 
 //VALIDA CD TIP ACOM/////////////////////////////////////////
@@ -48,11 +49,14 @@ $resulta_acom = ociparse($conn_ora,$consulta_acom);
 oci_execute($resulta_acom);
 $row_acom = oci_fetch_array($resulta_acom);
 
-$CD_TIP_ACOM_if = $row_acom['CD_TIP_ACOM'];
+@$CD_TIP_ACOM_if = @$row_acom['CD_TIP_ACOM'];
 echo '</br> Tip acom: </br>' . $CD_TIP_ACOM_if;
 if($CD_TIP_ACOM_if == '' || $CD_TIP_ACOM_if == NULL){
     $CD_TIP_ACOM_novo = $TIP_ACOM_antigo;
-    echo '</br> Tip acom novo errado:</br>' . $CD_TIP_ACOM_novo;
+    echo '</br> Tip acom novo errado:</br>' . $CD_TIP_ACOM_novo;																						
+    $_SESSION['msgerro'] = 'Tipo  de acomodação não existe! ';
+    header('location: '.$codigo);
+    return 0;
 }else{
     $CD_TIP_ACOM_novo = $CD_TIP_ACOM_if;
     echo '</br> Tip acom novo: </br>' . $CD_TIP_ACOM_novo;
@@ -74,9 +78,13 @@ $resulta_uni_int = ociparse($conn_ora,$consulta_unid_int);
 oci_execute($resulta_uni_int);
 $row_uni_int = oci_fetch_array($resulta_uni_int);
 
-$CD_UNID_INT = $row_uni_int['CD_UNID_INT'];
+@$CD_UNID_INT = @$row_uni_int['CD_UNID_INT'];
 if($CD_UNID_INT == '' || $CD_UNID_INT == NULL){
     $CD_UNID_INT_novo = $UNID_INT_antigo;
+    $erro = oci_error($resulta_uni_int);																							
+    $_SESSION['msgerro'] = 'Unidade de internação não existe! ';
+    header('location: '.$codigo);
+    return 0;
 }else{
     $CD_UNID_INT_novo = $CD_UNID_INT;
 }
@@ -85,6 +93,10 @@ if($CD_UNID_INT == '' || $CD_UNID_INT == NULL){
 //VALIDA DS ENFERMARIA////////////////////////////////
 $DS_ENFERMARIA = $_POST['ds_enfermaria'];
 if($DS_ENFERMARIA == '' || $DS_ENFERMARIA == NULL){
+ 																							
+    $_SESSION['msgerro'] = 'Descrição de enfermaria não pode ser vazia! ';
+    header('location: '.$codigo);
+    return 0;
     $DS_ENFERMARIA_novo = $DS_ENFERMARIA_antigo;
 }else{
     $DS_ENFERMARIA_novo = $DS_ENFERMARIA;
@@ -94,6 +106,10 @@ if($DS_ENFERMARIA == '' || $DS_ENFERMARIA == NULL){
 //VALIDA DS LEITO/////////////////////////
 $DS_LEITO = $_POST['ds_leito'];
 if($DS_LEITO == '' || $DS_LEITO == NULL){
+    																							
+    $_SESSION['msgerro'] = 'Descrição de leito não pode ser vazia! ';
+    header('location: '.$codigo);
+    return 0;
     $DS_LEITO_novo = $DS_LEITO_antigo;
 }else{
     $DS_LEITO_novo = $DS_LEITO;
@@ -137,9 +153,12 @@ $resulta_copa = ociparse($conn_ora,$consulta_copa);
 oci_execute($resulta_copa);
 $row_copa = oci_fetch_array($resulta_copa);
 
-$CD_COPA = $row_copa['CD_COPA'];
+@$CD_COPA = @$row_copa['CD_COPA'];
 echo '</br> cd copa </br>:'. $CD_COPA;
-if($CD_COPA == '' || $CD_COPA == NULL){
+if($CD_COPA == '' || $CD_COPA == NULL){																							
+    $_SESSION['msgerro'] = 'A copa que você digitou não exite! ';
+    header('location: '.$codigo);
+    return 0;
     $CD_COPA_novo = $CD_COPA_antigo;
 }else{
     $CD_COPA_novo = $CD_COPA;
@@ -171,7 +190,7 @@ if ($DS_TIP_ACOM_UTI_SUS != ''|| $DS_TIP_ACOM_UTI_SUS != NULL){
     @$row_sus = oci_fetch_array(@$resulta_sus);
 
     $CD_TIP_ACOM_UTI_SUS = $row_sus['CD_TIP_ACOM_UTI_SUS'];
-    if($CD_TIP_ACOM_UTI_SUS == '' || $CD_TIP_ACOM_UTI_SUS == NULL){
+    if($CD_TIP_ACOM_UTI_SUS == '' || $CD_TIP_ACOM_UTI_SUS == NULL){																						
         $CD_TIP_ACOM_UTI_SUS_novo = $CD_TIP_ACOM_UTI_SUS_antigo;
     }else{
         $CD_TIP_ACOM_UTI_SUS_novo = $CD_TIP_ACOM_UTI_SUS;
@@ -289,7 +308,7 @@ $insert_log_novo = "INSERT INTO leito_log
 $result_log_novo = ociparse($conn_ora,$insert_log_novo);
 oci_execute($result_log_novo);
 
-$codigo = 'editar_leito.php?cd_leito='.$_SESSION['cd_leito'];
+
 
 if (!$valida_insert_upadte) {   
 
