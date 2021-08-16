@@ -31,38 +31,7 @@ $DT_INTEGRA_antigo = $_SESSION['DT_INTEGRA_ANT'];
 $CD_LEITO_PAI_antigo = $_SESSION['CD_LEITO_PAI_ANT'];
 $usu_antigo = $_SESSION['usuarioLogin'];
 
-//INSERT LOG
-$insert_log_antigo="INSERT INTO leito_log
-                SELECT $v_valor_antigo AS CD_LEITO,
-                $TIP_ACOM_antigo AS CD_TIP_ACOM,
-                $UNID_INT_antigo AS CD_UNID_INT,
-                '$DS_ENFERMARIA_antigo' AS DS_ENFERMARIA,
-                '$DS_LEITO_antigo' AS DS_LEITO,
-                '$TP_SEXO_antigo' AS TP_SEXO,
-                '$TP_OCUPACAO_antigo' AS TP_OCUPACAO,
-                '$TP_SITUACAO_antigo' AS TP_SITUACAO,
-                '$DS_RESUMO_antigo' AS DS_RESUMO,
-                '$CD_LEITO_AIH_antigo' AS CD_LEITO_AIH,
-                $CD_COPA_antigo AS CD_COPA,
-                '$SN_EXTRA_antigo' AS SN_EXTRA,
-                '$SN_ALTA_MEDICA_antigo' AS SN_ALTA_MEDICA,
-                '$DT_ATIVACAO_antigo' AS DT_ATIVACAO,
-                '$DT_DESATIVACAO_antigo' AS DT_DESATIVACAO,
-                '$CD_TIP_ACOM_UTI_SUS_antigo' AS CD_TIP_ACOM_UTI_SUS,
-                '$NR_RAMAL_antigo' AS NR_RAMAL,
-                '$CD_LEITO_INTEGRA_antigo' AS CD_LEITO_INTEGRA,
-                '$CD_SEQ_INTEGRA_antigo' AS CD_SEQ_INTEGRA,
-                '$DT_INTEGRA_antigo' AS DT_INTEGRA,
-                '$CD_LEITO_PAI_antigo' AS CD_LEITO_PAI,
-                'A' AS TP_ETAPA,
-                SYSDATE,
-                UPPER('$usu_antigo') 
-                from DUAL";
-echo $insert_log_antigo;
-$result_log_antigo = ociparse($conn_ora,$insert_log_antigo);
-oci_execute($result_log_antigo);
 
-$v_valor_novo = $v_valor_antigo;
 
 //VALIDA CD TIP ACOM/////////////////////////////////////////
 
@@ -74,19 +43,19 @@ $consulta_acom = "SELECT DISTINCT acom.*
                     INNER JOIN tip_acom acom
                         ON acom.CD_TIP_ACOM = lei.CD_TIP_ACOM
                     WHERE acom.DS_TIP_ACOM = '$TIP_ACOM'";
-echo '</br>' . $consulta_acom;
+echo '</br> consulta acom: </br>' . $consulta_acom;
 $resulta_acom = ociparse($conn_ora,$consulta_acom);
 oci_execute($resulta_acom);
 $row_acom = oci_fetch_array($resulta_acom);
 
 $CD_TIP_ACOM_if = $row_acom['CD_TIP_ACOM'];
-echo '</br> Tip acom:' . $CD_TIP_ACOM_if;
+echo '</br> Tip acom: </br>' . $CD_TIP_ACOM_if;
 if($CD_TIP_ACOM_if == '' || $CD_TIP_ACOM_if == NULL){
     $CD_TIP_ACOM_novo = $TIP_ACOM_antigo;
-    echo '</br> Tip acom novo if:' . $CD_TIP_ACOM_novo;
+    echo '</br> Tip acom novo errado:</br>' . $CD_TIP_ACOM_novo;
 }else{
     $CD_TIP_ACOM_novo = $CD_TIP_ACOM_if;
-    echo '</br> Tip acom novo else:' . $CD_TIP_ACOM_novo;
+    echo '</br> Tip acom novo: </br>' . $CD_TIP_ACOM_novo;
 }
 
 ///////////////////////////////////////////////////////////////
@@ -100,7 +69,7 @@ $consulta_unid_int = "SELECT DISTINCT uni.*
                         INNER JOIN unid_int uni
                             ON uni.CD_UNID_INT = lei.CD_UNID_INT
                         WHERE uni.DS_UNID_INT = '$UNID_INT'";
-echo '</br>' . $consulta_unid_int;
+echo '</br> consulta unid int: </br>' . $consulta_unid_int;
 $resulta_uni_int = ociparse($conn_ora,$consulta_unid_int);
 oci_execute($resulta_uni_int);
 $row_uni_int = oci_fetch_array($resulta_uni_int);
@@ -139,7 +108,7 @@ if(isset($_POST['ativo'])){
 }else{
     $TP_SITUACAO = 'off';
 }
-echo '</br>TP Situação:'. $TP_SITUACAO;
+echo '</br>TP Situação: </br>'. $TP_SITUACAO;
 if ($TP_SITUACAO == 'on'){
     $TP_SITUACAO_novo = 'A';
     $DT_DESATIVACAO_novo = '';
@@ -163,13 +132,13 @@ $consulta_copa = "SELECT DISTINCT cp.*
                         INNER JOIN copa cp
                             ON cp.CD_COPA = lei.CD_COPA
                         WHERE cp.DS_COPA = '$DS_COPA'";
-echo '</br>' . $consulta_copa;
+echo '</br> consulta copa </br>' . $consulta_copa;
 $resulta_copa = ociparse($conn_ora,$consulta_copa);
 oci_execute($resulta_copa);
 $row_copa = oci_fetch_array($resulta_copa);
 
 $CD_COPA = $row_copa['CD_COPA'];
-echo "a".$CD_COPA;
+echo '</br> cd copa </br>:'. $CD_COPA;
 if($CD_COPA == '' || $CD_COPA == NULL){
     $CD_COPA_novo = $CD_COPA_antigo;
 }else{
@@ -188,15 +157,15 @@ if ($SN_EXTRA == 'on'){
 }else{
     $SN_EXTRA_novo = 'N';
 }
-echo '</br> SN Extra novo:' . $SN_EXTRA_novo;
+echo '</br> SN Extra novo: </br>' . $SN_EXTRA_novo;
 
 //VALIDA TIP ACOM UTI SUS
 $DS_TIP_ACOM_UTI_SUS = trim($_POST['input_valor_sus']);
 
 if ($DS_TIP_ACOM_UTI_SUS != ''|| $DS_TIP_ACOM_UTI_SUS != NULL){
     $consulta_sus = "SELECT DISTINCT sus.* from tip_acom_uti_sus sus where 
-    DS_TIP_ACOM_UTI_SUS = '$DS_TIP_ACOM_UTI_SUS'";
-    echo '</br>' . $consulta_sus;
+                    DS_TIP_ACOM_UTI_SUS = '$DS_TIP_ACOM_UTI_SUS'";
+    echo '</br> consulta sus: </br>' . $consulta_sus;
     @$resulta_sus = ociparse($conn_ora,@$consulta_sus);
     @oci_execute(@$resulta_sus);
     @$row_sus = oci_fetch_array(@$resulta_sus);
@@ -212,8 +181,55 @@ if ($DS_TIP_ACOM_UTI_SUS != ''|| $DS_TIP_ACOM_UTI_SUS != NULL){
 }
 //Validações////////////////////////////////////////////////////////
 
-
+$count_tip_acom="SELECT COUNT (*) AS QTD
+                    FROM (Select DISTINCT acom.* from leito lei
+                    INNER JOIN tip_acom acom
+                    ON acom.CD_TIP_ACOM = lei.CD_TIP_ACOM
+                    WHERE acom.DS_TIP_ACOM = 'ENFERMARIA')
+                    ";
+echo '</br> count tip acom :</br>'. $count_tip_acom;
+$result_cont_tip_acom = ociparse($conn_ora, $count_tip_acom);
+oci_execute($result_cont_tip_acom);
+$row_count_acom = oci_fetch_array($result_cont_tip_acom);
+echo '</br> qtd tip acom: </br>'. $row_count_acom['QTD'];
+$qtd_acom = $row_count_acom['QTD'];
 ///////////////////////////////////////////////////////////////////
+
+//INSERT LOG
+$insert_log_antigo="INSERT INTO leito_log
+                SELECT $v_valor_antigo AS CD_LEITO,
+                $TIP_ACOM_antigo AS CD_TIP_ACOM,
+                $UNID_INT_antigo AS CD_UNID_INT,
+                '$DS_ENFERMARIA_antigo' AS DS_ENFERMARIA,
+                '$DS_LEITO_antigo' AS DS_LEITO,
+                '$TP_SEXO_antigo' AS TP_SEXO,
+                '$TP_OCUPACAO_antigo' AS TP_OCUPACAO,
+                '$TP_SITUACAO_antigo' AS TP_SITUACAO,
+                '$DS_RESUMO_antigo' AS DS_RESUMO,
+                '$CD_LEITO_AIH_antigo' AS CD_LEITO_AIH,
+                $CD_COPA_antigo AS CD_COPA,
+                '$SN_EXTRA_antigo' AS SN_EXTRA,
+                '$SN_ALTA_MEDICA_antigo' AS SN_ALTA_MEDICA,
+                '$DT_ATIVACAO_antigo' AS DT_ATIVACAO,
+                '$DT_DESATIVACAO_antigo' AS DT_DESATIVACAO,
+                '$CD_TIP_ACOM_UTI_SUS_antigo' AS CD_TIP_ACOM_UTI_SUS,
+                '$NR_RAMAL_antigo' AS NR_RAMAL,
+                '$CD_LEITO_INTEGRA_antigo' AS CD_LEITO_INTEGRA,
+                '$CD_SEQ_INTEGRA_antigo' AS CD_SEQ_INTEGRA,
+                '$DT_INTEGRA_antigo' AS DT_INTEGRA,
+                '$CD_LEITO_PAI_antigo' AS CD_LEITO_PAI,
+                'A' AS TP_ETAPA,
+                SYSDATE,
+                UPPER('$usu_antigo') 
+                from DUAL";
+echo '</br> log antigo: </br>'. $insert_log_antigo;
+$result_log_antigo = ociparse($conn_ora,$insert_log_antigo);
+oci_execute($result_log_antigo);
+
+$v_valor_novo = $v_valor_antigo;
+
+
+
 
 //UPDATE LEITO
 
@@ -238,7 +254,7 @@ CD_LEITO_INTEGRA = '$CD_LEITO_INTEGRA_antigo',
 CD_SEQ_INTEGRA = '$CD_SEQ_INTEGRA_antigo',
 DT_INTEGRA = '$DT_INTEGRA_antigo',
 CD_LEITO_PAI = '$CD_LEITO_PAI_antigo' where CD_LEITO = '$v_valor_antigo'";
-echo $update_leito;
+echo '</br> update leito: </br>'.  $update_leito;
 $result_leito = ociparse($conn_ora,$update_leito);
 $valida_insert_upadte = oci_execute($result_leito);
 
@@ -275,9 +291,9 @@ oci_execute($result_log_novo);
 
 $codigo = 'editar_leito.php?cd_leito='.$_SESSION['cd_leito'];
 
-if (!$valida_insert_update) {   
+if (!$valida_insert_upadte) {   
 
-    $erro = oci_error($result_tb_os);																							
+    $erro = oci_error($valida_insert_upadte);																							
     $_SESSION['msgerro'] = 'Erro ao atualizar o leito! ' . htmlentities($erro['message']);
     header('location: '.$codigo);
     return 0;
@@ -288,6 +304,6 @@ if (!$valida_insert_update) {
     header('location: pesquisar_leito.php'); 
     return 0;
     
-  }
+}
 
 ?>
