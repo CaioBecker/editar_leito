@@ -190,7 +190,10 @@ if ($DS_TIP_ACOM_UTI_SUS != ''|| $DS_TIP_ACOM_UTI_SUS != NULL){
     @$row_sus = oci_fetch_array(@$resulta_sus);
 
     $CD_TIP_ACOM_UTI_SUS = $row_sus['CD_TIP_ACOM_UTI_SUS'];
-    if($CD_TIP_ACOM_UTI_SUS == '' || $CD_TIP_ACOM_UTI_SUS == NULL){																						
+    if($CD_TIP_ACOM_UTI_SUS == '' || $CD_TIP_ACOM_UTI_SUS == NULL){	
+        $_SESSION['msgerro'] = 'Tipo de acomodação SUS não exite! ';
+        header('location: '.$codigo);
+        return 0;
         $CD_TIP_ACOM_UTI_SUS_novo = $CD_TIP_ACOM_UTI_SUS_antigo;
     }else{
         $CD_TIP_ACOM_UTI_SUS_novo = $CD_TIP_ACOM_UTI_SUS;
