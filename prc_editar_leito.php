@@ -269,7 +269,7 @@ $insert_log_novo = "INSERT INTO leito_log
                 SYSDATE,
                 UPPER('$usu_antigo') 
                 FROM DUAL";
-echo '</br>' . $insert_log_novo;
+
 $result_log_novo = ociparse($conn_ora,$insert_log_novo);
 $valida_insert = oci_execute($result_log_novo);
 $codigo = 'editar_leito.php?cd_leito='.$_SESSION['cd_leito'];
@@ -277,7 +277,7 @@ $codigo = 'editar_leito.php?cd_leito='.$_SESSION['cd_leito'];
 if (!$valida_insert) {   
     $erro = oci_error($result_tb_os) . oci_error($result_tb_os) ;																							
     $_SESSION['msgerro'] = htmlentities($erro['message']);
-    header('location: '.$codigo); 
+    header('location: '.$codigo);
     return 0;
   }else {
     $_SESSION['msg'] = 'Leito n° ' . $v_valor_novo . ' editado com sucesso!';

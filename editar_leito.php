@@ -254,8 +254,8 @@ include 'sql_editar_leito.php';
     </div>
     <div class="row">
         <div class="col-md-2">
-            Extra:
-            </br>
+        </br>
+            Extra: 
             <?php 
             if($SN_EXTRA == 'S'){
                 ?>
@@ -269,7 +269,7 @@ include 'sql_editar_leito.php';
         </div>
         <div class="col-md-2">
         </br>
-            Ativo:
+            Ativo: 
            <?php 
             if($TP_SITUACAO == 'A'){
                 ?>
