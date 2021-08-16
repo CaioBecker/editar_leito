@@ -77,7 +77,7 @@ include 'sql_editar_leito.php';
 
             <div class="input-group col-12" style="padding: 0 !important;">
                 <input id="input_valor_acom" name="input_valor_acom" type="text" class="form-control" 
-                    value="<?php echo $placeholder_botao;   ?>"  >
+                    value="<?php echo $placeholder_botao;?>">
             </div>
 
             <?php
@@ -129,7 +129,7 @@ include 'sql_editar_leito.php';
 
             <div class="input-group col-12" style="padding: 0 !important;">
                 <input id="input_valor_uni_int" name="input_valor_uni_int" type="text" class="form-control" 
-                    value="<?php echo $placeholder_botao_uni;  ?> " onkeypress="return ApenasLetras(event,this)" >
+                    value="<?php echo $placeholder_botao_uni;?>" onkeypress="return ApenasLetras(event,this)" >
             </div>
 
             <?php
@@ -191,7 +191,7 @@ include 'sql_editar_leito.php';
 
             <div class="input-group col-12" style="padding: 0 !important;">
                 <input id="input_valor_copa" name="input_valor_copa" type="text" class="form-control" 
-                    value="<?php echo $placeholder_botao_copa;  ?> "  >
+                    value="<?php echo $placeholder_botao_copa;?>">
             </div>
 
             <?php
@@ -240,7 +240,7 @@ include 'sql_editar_leito.php';
 
             <div class="input-group col-12" style="padding: 0 !important;">
                 <input id="input_valor_sus" name="input_valor_sus" type="text" class="form-control" 
-                    value="<?php echo $placeholder_botao_sus;  ?> "  >
+                    value="<?php echo $placeholder_botao_sus;?>">
             </div>
 
             <?php

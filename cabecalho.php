@@ -9,7 +9,7 @@
     ob_start();
 
     //VARIAVEIS NOME
-    @$nome = @$_SESSION['usuarioLogin2'];
+    @$nome = @$_SESSION['usuarioLogin'];
     @$pri_nome = substr(@$nome, 0, strpos(@$nome, ' '));
 
     //ACESSO RESTRITO
@@ -78,9 +78,6 @@
                         </div>
                 </div>
                 </li>
-                <?php
-                $pri_nome = $_SESSION['usuarioLogin']
-                ?>
                 <div class="menu_perfil">
                     
                     <li class="nav-item dropdown">
