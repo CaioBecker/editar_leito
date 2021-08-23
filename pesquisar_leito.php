@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
 				
 		echo "<th class='align-middle' style='text-align: center;'> Código Leito</th>			  
 		      <th class='align-middle' style='text-align: center;'> Descrição Leito</th>
+              <th class='align-middle' style='text-align: center;'> Ocupação</th>
               <th class='align-middle' style='text-align: center;'> Situação</th>
               <th class='align-middle' style='text-align: center;'> Opções</th>";
         
@@ -82,8 +83,35 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
             echo "</tr></thead>";		
             echo "<td style='text-align: center;'>" . $cd_leito . "<br>" . "</td>";
             echo "<td style='text-align: center;'>" . $row_leito['DS_LEITO'] . "<br>" . "</td>";
-            if (strtoupper($row_leito['TP_SITUACAO']) == 'A') { echo "<td style='text-align: center;'>" . "<i style='color:green' class='fa fa-check' aria-hidden='true'></i>" . "<br>" . "</td>"; } 
-			else { echo "<td style='text-align: center;'>" . "<i style='color:red' class='fa fa-times' aria-hidden='true'></i>" . "<br>" . "</td>"; }
+            if(strtoupper($row_leito['TP_OCUPACAO']) == 'V') { 
+                echo "<td style='text-align: center;'> Vago</td>"; 
+            }elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'O') { 
+                echo "<td style='text-align: center;'> Ocup. por Paciente</td>";
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'L') { 
+                echo "<td style='text-align: center;'> Limpeza</td>";
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'I') { 
+                echo "<td style='text-align: center;'> Ocup. por Infecção</td>"; 
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'R') { 
+                echo "<td style='text-align: center;'> Ocup. por Reserva</td>"; 
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'A') { 
+                echo "<td style='text-align: center;'> Acompanhante</td>";
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'E') { 
+                echo "<td style='text-align: center;'> Reforma</td>";
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'M') { 
+                echo "<td style='text-align: center;'> Manutanção</td>";
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'N') { 
+                echo "<td style='text-align: center;'> Interditação</td>"; 
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'C') { 
+                echo "<td style='text-align: center;'> Interditado por Infecção</td>"; 
+            } elseif(strtoupper($row_leito['TP_OCUPACAO']) == 'T') { 
+                echo "<td style='text-align: center;'> Interditado Temporariamente</td>"; 
+            }
+            if (strtoupper($row_leito['TP_SITUACAO']) == 'A') { 
+                echo "<td style='text-align: center;'>" . "<i style='color:green' class='fa fa-check' aria-hidden='true'></i>" . "<br>" . "</td>"; 
+            } 
+			else { 
+                echo "<td style='text-align: center;'>" . "<i style='color:red' class='fa fa-times' aria-hidden='true'></i>" . "<br>" . "</td>"; 
+            }
             echo "<td style='text-align: center;'>" . "<a class='btn btn-primary' href='editar_leito.php?cd_leito=" . $cd_leito . "'>" . "<i class='fas fa-pen'></i>" . "</a> "; 		
  
          echo "</tr>";

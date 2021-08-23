@@ -146,6 +146,7 @@ if ($TP_SITUACAO == 'on'){
 }
 echo '</br>TP Situação novo:' . $TP_SITUACAO_novo;
 echo '</br>DT desativa novo:'. $DT_DESATIVACAO_novo;
+echo '</br>teste data: </br>'. date('d-M-y');
 //////////////////////////////////////////////////////
 
 //VALIDA CD COPA/////////////////////////////////////////////
@@ -325,13 +326,13 @@ if (!$valida_insert_upadte) {
 
     $erro = oci_error($valida_insert_upadte);																							
     $_SESSION['msgerro'] = 'Erro ao atualizar o leito! ' . htmlentities($erro['message']);
-    //header('location: '.$codigo);
+    header('location: '.$codigo);
     return 0;
 
   }else {
 
     $_SESSION['msg'] = 'Leito n° ' . $v_valor_novo . ' editado com sucesso!';
-    //header('location: pesquisar_leito.php'); 
+    header('location: pesquisar_leito.php'); 
     return 0;
     
 }
