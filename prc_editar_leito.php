@@ -117,32 +117,40 @@ if($DS_LEITO == '' || $DS_LEITO == NULL){
 //////////////////////////////////////////
 
 //VALIDA TP SITUAÇÃO///////////////////////////////////
-$DT_DESATIVACAO = $DT_ATIVACAO_antigo;
 
+echo '</br> dt desativa antigo:'. $DT_DESATIVACAO_antigo;
+$DT_DESATIVACAO = $DT_DESATIVACAO_antigo;
+echo '</br> dt desativa:'. $DT_DESATIVACAO;
 if(isset($_POST['ativo'])){
     $TP_SITUACAO = 'on';
 }else{
     $TP_SITUACAO = 'off';
 }
-echo '</br>TP Situação: </br>'. $TP_SITUACAO;
+//$TP_SITUACAO = $_POST['ativo'];
+echo '</br>TP Situação:'. $TP_SITUACAO;
 if ($TP_SITUACAO == 'on'){
     $TP_SITUACAO_novo = 'A';
     $DT_DESATIVACAO_novo = '';
-    $DT_DESATIVACAO_novo = $DT_DESATIVACAO_antigo;
+    echo '</br> if ativo';
+    //$DT_DESATIVACAO_novo = $DT_DESATIVACAO_antigo;
 }else{
     $TP_SITUACAO_novo = 'I';
+    echo '</br> if inativo';
     if($DT_DESATIVACAO == '' || $DT_DESATIVACAO === NULL){
-    $DT_DESATIVACAO_novo = 'SYSDATE';
+    echo'</br> if vazio';
+        $DT_DESATIVACAO_novo = date('d-M-y');
     }else{
+        echo'</br> if cheio';
         $DT_DESATIVACAO_novo = $DT_DESATIVACAO_antigo;
     }
 }
 echo '</br>TP Situação novo:' . $TP_SITUACAO_novo;
+echo '</br>DT desativa novo:'. $DT_DESATIVACAO_novo;
 //////////////////////////////////////////////////////
 
 //VALIDA CD COPA/////////////////////////////////////////////
 $DS_COPA = trim($_POST['input_valor_copa']);
-echo $DS_COPA;
+echo '</br>ds copa:</br>'. $DS_COPA;
 $consulta_copa = "SELECT DISTINCT cp.*
                         FROM leito lei
                         INNER JOIN copa cp
@@ -233,7 +241,7 @@ $insert_log_antigo="INSERT INTO leito_log
                 '$SN_EXTRA_antigo' AS SN_EXTRA,
                 '$SN_ALTA_MEDICA_antigo' AS SN_ALTA_MEDICA,
                 '$DT_ATIVACAO_antigo' AS DT_ATIVACAO,
-                '$DT_DESATIVACAO_antigo' AS DT_DESATIVACAO,
+                UPPER('$DT_DESATIVACAO_antigo') AS DT_DESATIVACAO,
                 '$CD_TIP_ACOM_UTI_SUS_antigo' AS CD_TIP_ACOM_UTI_SUS,
                 '$NR_RAMAL_antigo' AS NR_RAMAL,
                 '$CD_LEITO_INTEGRA_antigo' AS CD_LEITO_INTEGRA,
@@ -269,7 +277,7 @@ CD_COPA = '$CD_COPA_novo',
 SN_EXTRA = '$SN_EXTRA_novo',
 SN_ALTA_MEDICA = '$SN_ALTA_MEDICA_antigo',
 DT_ATIVACAO = '$DT_ATIVACAO_antigo',
-DT_DESATIVACAO = '$DT_DESATIVACAO_novo',
+DT_DESATIVACAO = UPPER('$DT_DESATIVACAO_novo'),
 CD_TIP_ACOM_UTI_SUS = '$CD_TIP_ACOM_UTI_SUS_novo',
 NR_RAMAL = '$NR_RAMAL_antigo',
 CD_LEITO_INTEGRA = '$CD_LEITO_INTEGRA_antigo',
@@ -296,7 +304,7 @@ $insert_log_novo = "INSERT INTO leito_log
                 '$SN_EXTRA_novo' AS SN_EXTRA,
                 '$SN_ALTA_MEDICA_antigo' AS SN_ALTA_MEDICA,
                 '$DT_ATIVACAO_antigo' AS DT_ATIVACAO,
-                '$DT_DESATIVACAO_novo' AS DT_DESATIVACAO,
+                UPPER('$DT_DESATIVACAO_novo') AS DT_DESATIVACAO,
                 '$CD_TIP_ACOM_UTI_SUS_novo' AS CD_TIP_ACOM_UTI_SUS,
                 '$NR_RAMAL_antigo' AS NR_RAMAL,
                 '$CD_LEITO_INTEGRA_antigo' AS CD_LEITO_INTEGRA,
@@ -307,7 +315,7 @@ $insert_log_novo = "INSERT INTO leito_log
                 SYSDATE,
                 UPPER('$usu_antigo') 
                 FROM DUAL";
-
+echo '</br> log novo</br>'. $insert_log_novo;
 $result_log_novo = ociparse($conn_ora,$insert_log_novo);
 oci_execute($result_log_novo);
 
@@ -317,13 +325,13 @@ if (!$valida_insert_upadte) {
 
     $erro = oci_error($valida_insert_upadte);																							
     $_SESSION['msgerro'] = 'Erro ao atualizar o leito! ' . htmlentities($erro['message']);
-    header('location: '.$codigo);
+    //header('location: '.$codigo);
     return 0;
 
   }else {
 
     $_SESSION['msg'] = 'Leito n° ' . $v_valor_novo . ' editado com sucesso!';
-    header('location: pesquisar_leito.php'); 
+    //header('location: pesquisar_leito.php'); 
     return 0;
     
 }
