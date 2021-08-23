@@ -316,7 +316,8 @@ $insert_log_novo = "INSERT INTO leito_log
                 SYSDATE,
                 UPPER('$usu_antigo') 
                 FROM DUAL";
-echo '</br> log novo</br>'. $insert_log_novo;
+
+
 $result_log_novo = ociparse($conn_ora,$insert_log_novo);
 oci_execute($result_log_novo);
 
