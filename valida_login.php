@@ -13,7 +13,7 @@
 		$senha = $_POST['senha'];		
 		$_SESSION['usuarioADM'] = 'N';
 		
-		$result_usuario = oci_parse($conn_ora, "SELECT dbamv.VALIDA_SENHA_FUNC_EDIT_LEITO(:usuario,:senha) AS RESP_LOGIN,
+		$result_usuario = oci_parse($conn_ora, "SELECT pgrme.VALIDA_SENHA_FUNC_EDIT_LEITO(:usuario,:senha) AS RESP_LOGIN,
 												INITCAP(usu.NM_USUARIO) AS USUARIO,                                                     
 												(SELECT CASE WHEN pu.CD_USUARIO IS NULL THEN 'N' ELSE 'S' END 
 												FROM dbasgu.PAPEL_USUARIOS pu
