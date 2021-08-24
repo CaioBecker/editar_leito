@@ -31,6 +31,7 @@ $DT_INTEGRA_antigo = $_SESSION['DT_INTEGRA_ANT'];
 $CD_LEITO_PAI_antigo = $_SESSION['CD_LEITO_PAI_ANT'];
 $usu_antigo = $_SESSION['usuarioLogin'];
 
+
 $codigo = 'editar_leito.php?cd_leito='.$_SESSION['cd_leito'];
 
 
@@ -100,6 +101,19 @@ if($DS_ENFERMARIA == '' || $DS_ENFERMARIA == NULL){
     $DS_ENFERMARIA_novo = $DS_ENFERMARIA_antigo;
 }else{
     $DS_ENFERMARIA_novo = $DS_ENFERMARIA;
+}
+//////////////////////////////////////////////////////
+
+//VALIDA DS RESUMO////////////////////////////////
+$DS_RESUMO = $_POST['ds_resumida'];
+if($DS_RESUMO == '' || $DS_RESUMO == NULL){
+ 																							
+    $_SESSION['msgerro'] = 'Descrição resumida não pode ser vazia! ';
+    header('location: '.$codigo);
+    return 0;
+    $DS_RESUMO_novo = $DS_RESUMO_antigo;
+}else{
+    $DS_RESUMO_novo = $DS_RESUMO;
 }
 //////////////////////////////////////////////////////
 
@@ -272,7 +286,7 @@ DS_LEITO = '$DS_LEITO_novo',
 TP_SEXO = '$TP_SEXO_antigo',
 TP_OCUPACAO = '$TP_OCUPACAO_antigo',
 TP_SITUACAO = '$TP_SITUACAO_novo',
-DS_RESUMO = '$DS_RESUMO_antigo',
+DS_RESUMO = '$DS_RESUMO_novo',
 CD_LEITO_AIH = '$CD_LEITO_AIH_antigo',
 CD_COPA = '$CD_COPA_novo',
 SN_EXTRA = '$SN_EXTRA_novo',
@@ -299,7 +313,7 @@ $insert_log_novo = "INSERT INTO leito_log
                 '$TP_SEXO_antigo' AS TP_SEXO,
                 '$TP_OCUPACAO_antigo' AS TP_OCUPACAO,
                 '$TP_SITUACAO_novo' AS TP_SITUACAO,
-                '$DS_RESUMO_antigo' AS DS_RESUMO,
+                '$DS_RESUMO_novo' AS DS_RESUMO,
                 '$CD_LEITO_AIH_antigo' AS CD_LEITO_AIH,
                 $CD_COPA_novo AS CD_COPA,
                 '$SN_EXTRA_novo' AS SN_EXTRA,

@@ -36,7 +36,7 @@ include 'sql_editar_leito.php';
             <input type="tetx" class="form-control" value="<?php echo @$_SESSION['cd_leito'];?>" disabled>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             Tipo  acomodação:
             <?php 
 
@@ -45,7 +45,7 @@ include 'sql_editar_leito.php';
 
                 //PLACEHOLDER BOTAO
                
-                $placeholder_botao= $row_acom['DS_TIP_ACOM'];
+                $placeholder_botao= @$row_acom['DS_TIP_ACOM'];
               
 
                 //CONSULTA_LISTA
@@ -89,7 +89,7 @@ include 'sql_editar_leito.php';
             <!--FIM CAIXA AUTOCOMPLETE-->   
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-3">
             Unidade de Internação:
             <?php 
 
@@ -97,7 +97,7 @@ include 'sql_editar_leito.php';
                 $classe_botao = 'fas fa-search';
 
                 //PLACEHOLDER BOTAO
-                    $placeholder_botao_uni= trim($row_uni_int['DS_UNID_INT']);
+                    $placeholder_botao_uni= trim(@$row_uni_int['DS_UNID_INT']);
                 
 
                 //CONSULTA_LISTA
@@ -140,16 +140,20 @@ include 'sql_editar_leito.php';
                                     
             <!--FIM CAIXA AUTOCOMPLETE-->  
         </div>
+        <div class="col-md-2">
+            Descrição resumida:
+            <input class="form-control" type="text" id="id_ds_resumida" name="ds_resumida" value="<?php echo @$row_edit_leito['DS_RESUMO'];?>"></input>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-md-3">
             Descrição enfermaria:
-            <input class="form-control" type="text" id="id_ds_enfermaria" name="ds_enfermaria" value="<?php echo $row_edit_leito['DS_ENFERMARIA'];?>"></input>
+            <input class="form-control" type="text" id="id_ds_enfermaria" name="ds_enfermaria" value="<?php echo @$row_edit_leito['DS_ENFERMARIA'];?>"></input>
         </div>
         <div class="col-md-3">
             Descrição leito:
-            <input class="form-control" type="text" id="id_ds_leito" name="ds_leito" value="<?php echo $row_edit_leito['DS_LEITO'];?>"></input>
+            <input class="form-control" type="text" id="id_ds_leito" name="ds_leito" value="<?php echo @$row_edit_leito['DS_LEITO'];?>"></input>
         </div>
         <div class="col-md-3">
             Descrição copa:
@@ -159,7 +163,7 @@ include 'sql_editar_leito.php';
                 $classe_botao = 'fas fa-search';
 
                 //PLACEHOLDER BOTAO
-                    $placeholder_botao_copa= $row_copa['DS_COPA'];
+                    $placeholder_botao_copa= @$row_copa['DS_COPA'];
                 
 
                 //CONSULTA_LISTA
